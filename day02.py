@@ -28,7 +28,7 @@ def solve_part2(input_data:str) -> int:
     reports = parse(input_data)
     count_safe = 0
     for report in reports:
-        report_variants = [report] + list(map(lambda i: remove_item_at_index(i, report), range(len(report))))
+        report_variants = [report] + [remove_item_at_index(i, report) for i in range(len(report))]
         if any(is_safe(variant) for variant in report_variants):
             count_safe += 1
     return count_safe
