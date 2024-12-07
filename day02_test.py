@@ -1,5 +1,5 @@
 import pytest
-from day02 import solve
+from day02 import solve, solve_part2
 
 
 def test_example():
@@ -11,7 +11,7 @@ def test_example():
 1 3 6 7 9
 """
     assert solve(example_input) == 2
-    # assert solve_part2(example_input) == 31
+    assert solve_part2(example_input) == 4
 
 
 test_example()

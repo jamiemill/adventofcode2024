@@ -21,9 +21,21 @@ def solve(input_data:str) -> int:
         if is_safe(report): count_safe += 1 
     return count_safe
 
+def remove_item_at_index(idx, lst):
+    return lst[:idx] + lst[idx+1:]
 
-# def solve_part2(input_data:str) -> int:
-   
+def solve_part2(input_data:str) -> int:
+    reports = parse(input_data)
+    count_safe = 0
+    for report in reports:
+        report_is_safe = is_safe(report)
+        if (not report_is_safe):
+            for i in range(len(report)):
+                shortened_report = remove_item_at_index(i, report)
+                if (is_safe(shortened_report)):
+                    report_is_safe = True
+        if report_is_safe: count_safe += 1
+    return count_safe
 
 
 
@@ -32,5 +44,5 @@ if __name__ == "__main__":
         puzzle_input = f.read()
     result = solve(puzzle_input)
     print(f"Result: {result}")
-    # result = solve_part2(puzzle_input)
-    # print(f"Result: {result}")
+    result = solve_part2(puzzle_input)
+    print(f"Result: {result}")
