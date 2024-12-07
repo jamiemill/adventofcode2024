@@ -28,13 +28,8 @@ def solve_part2(input_data:str) -> int:
     reports = parse(input_data)
     count_safe = 0
     for report in reports:
-        report_is_safe = is_safe(report)
-        if (not report_is_safe):
-            for i in range(len(report)):
-                shortened_report = remove_item_at_index(i, report)
-                if (is_safe(shortened_report)):
-                    report_is_safe = True
-        if report_is_safe: count_safe += 1
+        report_variants = [report] + list(map(lambda i: remove_item_at_index(i, report), range(len(report))))
+        if True in map(is_safe, report_variants): count_safe += 1
     return count_safe
 
 
