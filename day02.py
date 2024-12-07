@@ -7,9 +7,9 @@ def range_ok(pair):
     return 0 < abs(l-r) < 4
 
 def is_safe(report):
-    is_increasing = sorted(report) == report
-    is_decreasing = sorted(report, reverse=True) == report
-    pairs = zip(report, report[1:])
+    pairs = list(zip(report, report[1:])) # call list to avoid having a generator that gets exhausted and can't be reused
+    is_increasing = all(r >= l for l,r in pairs)
+    is_decreasing = all(r <= l for l,r in pairs)
     differences_are_ok = all(range_ok(pair) for pair in pairs)
     return (is_increasing or is_decreasing) and differences_are_ok
 
