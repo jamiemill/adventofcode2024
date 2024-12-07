@@ -6,17 +6,19 @@ def range_ok(pair):
     [l,r] = pair
     return abs(l-r) < 4 and abs(l-r) > 0
 
+def is_safe(report):
+    is_increasing = sorted(report) == report
+    is_decreasing = list(reversed(sorted(report))) == report
+    pairs = list(zip(report, report[1:]))
+    differences_are_ok = False not in map(range_ok, pairs)
+    return (is_increasing or is_decreasing) and differences_are_ok
+
 
 def solve(input_data:str) -> int:
     reports = parse(input_data)
     count_safe = 0
     for report in reports:
-        is_increasing = sorted(report) == report
-        is_decreasing = list(reversed(sorted(report))) == report
-        pairs = list(zip(report, report[1:]))
-        differences_are_ok = False not in map(range_ok, pairs)
-        if (is_increasing or is_decreasing) and differences_are_ok:
-            count_safe += 1
+        if is_safe(report): count_safe += 1 
     return count_safe
 
 
