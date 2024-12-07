@@ -3,14 +3,14 @@ def parse(input_data:str) ->list[list[int]]:
     return [list(map(int, l.split())) for l in lines]
 
 def range_ok(pair):
-    [l,r] = pair
-    return abs(l-r) < 4 and abs(l-r) > 0
+    l,r = pair
+    return 0 < abs(l-r) < 4
 
 def is_safe(report):
     is_increasing = sorted(report) == report
-    is_decreasing = list(reversed(sorted(report))) == report
-    pairs = list(zip(report, report[1:]))
-    differences_are_ok = False not in map(range_ok, pairs)
+    is_decreasing = sorted(report, reverse=True) == report
+    pairs = zip(report, report[1:])
+    differences_are_ok = all(range_ok(pair) for pair in pairs)
     return (is_increasing or is_decreasing) and differences_are_ok
 
 
@@ -29,7 +29,7 @@ def solve_part2(input_data:str) -> int:
     count_safe = 0
     for report in reports:
         report_variants = [report] + list(map(lambda i: remove_item_at_index(i, report), range(len(report))))
-        if True in map(is_safe, report_variants):
+        if any(is_safe(variant) for variant in report_variants):
             count_safe += 1
     return count_safe
 
