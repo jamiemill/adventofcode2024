@@ -13,16 +13,11 @@ def solve(input_data:str) -> int:
     [first_list, second_list] = parse(input_data)
     first_list.sort()
     second_list.sort()
-    zipped = zip(first_list, second_list)
-    summed = sum(map(lambda pair: abs(pair[0] - pair[1]), zipped))
-    return summed
+    return sum(abs(l-r) for l,r in zip(first_list, second_list))
 
 def solve_part2(input_data:str) -> int:
     [first_list, second_list] = parse(input_data)
-    score = 0
-    for item in first_list:
-        score += item * second_list.count(item)
-    return score
+    return sum(item * second_list.count(item) for item in first_list)
 
 
 
