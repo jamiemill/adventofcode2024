@@ -29,9 +29,9 @@ def solve_part2(input_data:str) -> int:
     count_safe = 0
     for report in reports:
         report_variants = [report] + list(map(lambda i: remove_item_at_index(i, report), range(len(report))))
-        if True in map(is_safe, report_variants): count_safe += 1
+        if True in map(is_safe, report_variants):
+            count_safe += 1
     return count_safe
-
 
 
 if __name__ == "__main__":
