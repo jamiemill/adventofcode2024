@@ -16,10 +16,7 @@ def is_safe(report):
 
 def solve(input_data:str) -> int:
     reports = parse(input_data)
-    count_safe = 0
-    for report in reports:
-        if is_safe(report): count_safe += 1 
-    return count_safe
+    return sum(is_safe(report) for report in reports)
 
 def remove_item_at_index(idx, lst):
     return lst[:idx] + lst[idx+1:]
